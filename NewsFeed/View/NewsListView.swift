@@ -48,10 +48,10 @@ struct NewsListView: View {
                                 .frame(width: 90)
                         })
                 }else{
-                    Image("garfield")
+                    Image("placeholder-mediumgrey")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 90)
+                        .frame(width: 90)
                         .cornerRadius(2)
                 }
                 

@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import CoreData
 
-struct NewsArticles : Codable {
-    
+class NewsArticles : Codable {
+
     let status : String
     let totalResults : Int
     let articles : [NewsArticle]

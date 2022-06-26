@@ -21,6 +21,9 @@ class NewsApiOrgDS : NewsDataSource {
         let newsUrl = URL(string: ApiConstants.NewsServerURL)!
         var request = URLRequest(url: newsUrl)
         request.httpMethod = "GET"
+
+        // This enables the app to get data even offline
+        request.cachePolicy = .returnCacheDataElseLoad
         
         let httpRequestTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
             self.handleServerResponse(data: data, response: response, error: error)
