@@ -52,7 +52,7 @@ struct NewsArticleDetailView: View {
             }
             VStack (alignment: .leading){
                 // Content
-                Text(article.content ?? "[No content]")
+                Text(article.description ?? "[No content]")
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     // .background(.blue)
                     .multilineTextAlignment(.leading)
