@@ -12,10 +12,12 @@ struct NewsArticleDetailView: View {
     var article: NewsArticle
     
     var body: some View {
-        VStack (alignment: .leading, spacing: 1) {
+        VStack {
+            
             // Title
             Text(article.title ?? "[No Title]")
-                .bold()
+                .multilineTextAlignment(.center)
+                .font(.title2)
                 .padding(.horizontal)
             
             // Image
@@ -24,46 +26,54 @@ struct NewsArticleDetailView: View {
                            content: {image in
                     image.resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 300)
+                        .frame(height: 240)
                 },
                 placeholder: {
                     ProgressView()
                 })
                 .padding(.horizontal)
-            }else {
+                
+            }else{
                 // Default image
                 Image("placeholder-tech")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 200)
+                    .frame(height: 240)
             }
 
             // Date
             if let dateStr = article.publishedAt {
-                Text(formatDate(dateStr: dateStr))
+                Text(DateUtils.formatDate(dateStr: dateStr))
+                    .font(.footnote)
+                    .multilineTextAlignment(.leading)
                     .padding(.horizontal)
+                    // .background(.yellow)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-                        
-            // Content
-            Text(article.content ?? "[No content]")
-                .padding(.horizontal)
-        }
+            VStack (alignment: .leading){
+                // Content
+                Text(article.content ?? "[No content]")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    // .background(.blue)
+                    .multilineTextAlignment(.leading)
+                    .padding()
+            }
+            // .background(.red)
+            
+        }// .background(.gray)
     }
-    
-    func formatDate(dateStr: String) -> String {
-        let dateFormatterIn = DateFormatter()
-        dateFormatterIn.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        
-        if let date = dateFormatterIn.date(from: dateStr){
-            let dateFormatterOut = DateFormatter()
-            dateFormatterOut.locale = Locale(identifier: "en_US")
-            dateFormatterOut.dateFormat = "EEEE, MMM d, yyyy"
-            return dateFormatterOut.string(from: date)
-        }else{
-            return ""
-        }
-    }
-    
     
 }
+
+
+struct Previews_NewsArticleDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        
+        let sampleArticle : NewsArticle = NewsArticle(sourceId: "X", sourceName: "XX", author: "Jaime Lucea", title: "Sample News Article Title", description: "This is an article", url: "urlString goes here", urlImg: "https://cdn.vox-cdn.com/thumbor/GGoKE-8sn4L8UWV6-Q6SAroILfQ=/0x38:1920x1043/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/23647688/pheonix.png",date: "2022-06-23T21:12:03Z" , content: "Developer Motion Twin announced that the rogue-lite will be getting a major update on Thursday. The Breaking Barriers update will be adding new difficulties and accessibility features like assist mode.")
+        
+        NewsArticleDetailView(article: sampleArticle)
+    }
+}
+
+
 

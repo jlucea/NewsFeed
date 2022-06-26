@@ -9,6 +9,7 @@ import Foundation
 
 final class NewsHandler : ObservableObject {
     
+    @Published var alertItem: AlertItem?
     @Published var newsArticles : [NewsArticle] = []
     /*
     @Published var newsArticles : [NewsArticle] = [NewsArticle(sourceId: "X", sourceName: "XX", author: "Jaime Lucea", title: "Sample Article 1",
@@ -18,7 +19,7 @@ final class NewsHandler : ObservableObject {
     func getNews(){
                 
         // Call data source for data
-        let datasource = NewsApiOrgDS(handler: self)
+        let datasource = NewsAPIOrgDataSource(handler: self)
         datasource.getNews()
     }
 
@@ -33,8 +34,17 @@ final class NewsHandler : ObservableObject {
 
     }
     
-    func handleError(){
-        
+    func handleError(error: NAError){
+        switch error {
+        case .JSONError:
+            alertItem = AlertContext.invalidData
+        case .serverError:
+            alertItem = AlertContext.serverError
+        case .noResponseError:
+            alertItem = AlertContext.noResponse
+        case .unknownError:
+            alertItem = AlertContext.unknownError
+        }
     }
     
 }

@@ -7,6 +7,18 @@
 
 import Foundation
 
+class NewsArticles : Codable {
+
+    let status : String
+    let totalResults : Int
+    let articles : [NewsArticle]
+    
+    func getSize() -> Int {
+        return totalResults
+    }
+    
+}
+
 struct NewsArticle : Codable, Identifiable {
     
     var id = UUID()

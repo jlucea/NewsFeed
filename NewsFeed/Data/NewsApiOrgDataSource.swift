@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NewsApiOrgDS : NewsDataSource {
+class NewsAPIOrgDataSource {
     
     let handler : NewsHandler
     
@@ -49,22 +49,21 @@ class NewsApiOrgDS : NewsDataSource {
                         print("NewsApiOrgDataSource - Empty list of articles")
                     } else {
                         print("NewsApiOrgDataSource - Returning data to handler")
-                        // handleNews
+                        // Provide data to the handler
                         handler.handleNews(news: newsList)
                     }
                     
                 } catch {
-                    // JSON Error
                     print("NewsApiOrgDataSource - JSON Error")
+                    handler.handleError(error: NAError.JSONError)
                 }
             } else {
                 print("NewsApiOrgDataSource - Response error code \(httpResponse.statusCode)")
-                // handler. handleError
+                handler.handleError(error: NAError.serverError)
             }
         } else {
             print("NewsApiOrgDataSource - No response from server")
-            // hander handleError
-            // self.presentMessage(message: "No se ha podido conectar con el servidor")
+            handler.handleError(error: NAError.noResponseError)
         }
         
     }
