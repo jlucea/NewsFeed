@@ -19,7 +19,12 @@ class NewsArticles : Codable {
     
 }
 
-struct NewsArticle : Codable, Identifiable {
+struct NewsArticle : Codable, Identifiable, Hashable {
+    
+    static func == (lhs: NewsArticle, rhs: NewsArticle) -> Bool {
+        return lhs.title == rhs.title
+    }
+    
     
     var id = UUID()
     
@@ -48,7 +53,7 @@ struct NewsArticle : Codable, Identifiable {
     }
 }
 
-struct Source : Codable {
+struct Source : Codable, Hashable {
     let id : String?
     let name : String?
     
