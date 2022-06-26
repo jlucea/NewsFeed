@@ -6,15 +6,19 @@
 //
 
 import SwiftUI
+import Foundation
 
 @main
 struct NewsFeedApp: App {
+
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
+        
         WindowGroup {
-            ContentView()
+            NewsListView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
+    
 }
