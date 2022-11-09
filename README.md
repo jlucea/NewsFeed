@@ -4,7 +4,7 @@
 
 News feed is a lightweight iOS app that shows the latest technology news.
 
-# Feature
+# Features
 
 * List view and detail view
 * Search bar updates results as the user types
