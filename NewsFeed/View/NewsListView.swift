@@ -22,7 +22,8 @@ struct NewsListView: View {
                             NewsArticleCell(article: article)
                             NavigationLink(destination: NewsArticleDetailView(article: article), label: {
                                 EmptyView()
-                            }).opacity(0)
+                            })
+                            .opacity(0)
                         }
                     }
                 }

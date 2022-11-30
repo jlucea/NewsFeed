@@ -12,64 +12,92 @@ struct NewsArticleDetailView: View {
     var article: NewsArticle
     
     var body: some View {
-        VStack {
-            
-            // Title
-            Text(article.title ?? "[No Title]")
-                .multilineTextAlignment(.center)
-                .font(.title2)
-                .padding(.horizontal)
-            
-            // Image
-            if let urlStr = article.urlToImage {
-                AsyncImage(url: URL(string: urlStr),
-                           content: {image in
-                    image.resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 240)
-                },
-                placeholder: {
-                    ProgressView()
-                })
+
+        ScrollView (.vertical, showsIndicators: true) {
+        
+            VStack {
+                
+                // Image
+                if let urlStr = article.urlToImage {
+                    AsyncImage(url: URL(string: urlStr),
+                               content: { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }, placeholder: {
+                        ProgressView()
+                            .aspectRatio(contentMode: .fit)
+                    })
+                }else{
+                    // Default image
+                    Image("placeholder-tech")
+                        .resizable()
+                        .scaledToFit()
+                }
+                
+                // VStack containing source, title, date, description and content
+                VStack (alignment: .leading, spacing: 10) {
+                    
+                    if let sourceStr = article.source.name {
+                        Text(sourceStr)
+                            .font(.callout)
+                            .fontWeight(.bold)
+                            .padding(.top)
+                    }
+                    
+                    // Title
+                    Text(article.title ?? "[No Title]")
+                        .font(.title)
+                    
+                    // Description
+                    if let descriptionTxt = article.description {
+                        Text(descriptionTxt)
+                            .font(.subheadline)
+                    }
+                    
+                    // Author
+                    if let authorStr = article.author {
+                        Text(authorStr)
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .padding(.top)
+                    }
+                    
+                    // Date
+                    if let dateStr = article.publishedAt {
+                        Text(DateUtils.formatDate(dateStr: dateStr, showDay: true))
+                            .font(.footnote)
+                    }
+                    
+                    Divider().padding(.vertical)
+                    
+                    // Content
+                    Text(article.content ?? "[No content]")
+                        .font(.body)
+                    
+                }
                 .padding(.horizontal)
                 
-            }else{
-                // Default image
-                Image("placeholder-tech")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 240)
-            }
-
-            // Date
-            if let dateStr = article.publishedAt {
-                Text(DateUtils.formatDate(dateStr: dateStr, showDay: true))
-                    .font(.footnote)
-                    .multilineTextAlignment(.leading)
-                    .padding(.horizontal)
-                    // .background(.yellow)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            VStack (alignment: .leading){
-                // Content
-                Text(article.description ?? "[No content]")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                    // .background(.blue)
-                    .multilineTextAlignment(.leading)
-                    .padding()
-            }
-            // .background(.red)
-            
-        }// .background(.gray)
-    }
+            } // VStack
+                                                                
+        } // ScrollView
+//        .background(Color.yellow)
+        
+    } // Body
     
-}
+} // Struct
 
 
 struct Previews_NewsArticleDetailView_Previews: PreviewProvider {
+    
     static var previews: some View {
         
-        let sampleArticle : NewsArticle = NewsArticle(sourceId: "X", sourceName: "XX", author: "Jaime Lucea", title: "Sample News Article Title", description: "This is an article", url: "urlString goes here", urlImg: "https://cdn.vox-cdn.com/thumbor/GGoKE-8sn4L8UWV6-Q6SAroILfQ=/0x38:1920x1043/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/23647688/pheonix.png",date: "2022-06-23T21:12:03Z" , content: "Developer Motion Twin announced that the rogue-lite will be getting a major update on Thursday. The Breaking Barriers update will be adding new difficulties and accessibility features like assist mode.")
+        let sampleArticle = NewsArticle(sourceId: "engadget", sourceName: "Engadget", author: "Kris Holt",
+                        title: "Apple Music Replay gets a much-needed redesign for 2022",
+                        description: "Apple Music users can now access a recap of what they’ve listened to on the service this year thanks to Apple Music Replay. Apple has redesigned the feature to make it a much sleeker experience, albeit one that perhaps isn’t quite on par with Spotify.",
+                        url:"https://www.engadget.com/apple-music-replay-2022-redesign-152115957.html",
+                        urlImg: "https://s.yimg.com/os/creatr-uploaded-images/2022-11/ba6b1aa0-6ff7-11ed-b4f5-d7e02a75274d",
+                        date: "2022-11-30T09:10:11Z",
+                        content: "DOGE short-term investors could be shorting the memecoin for gains\r\n- DOGEs current bull rally may stands under speculation\r\nNot so long ago, crypto investors showed disinterest in Dogecoin [DOGE]. I… [+970 chars]DOGE short-term investors could be shorting the memecoin for gains\r\n- DOGEs current bull rally may stands under speculation\r\nNot so long ago, crypto investors showed disinterest in Dogecoin [DOGE]. I… [+970 chars]DOGE short-term investors could be shorting the memecoin for gains\r\n- DOGEs current bull rally may stands under speculation\r\nNot so long ago, crypto investors showed disinterest in Dogecoin [DOGE]. I… [+970 chars]")
         
         NewsArticleDetailView(article: sampleArticle)
     }
