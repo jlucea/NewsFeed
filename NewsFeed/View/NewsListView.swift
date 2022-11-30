@@ -24,7 +24,6 @@ struct NewsListView: View {
                                 EmptyView()
                             }).opacity(0)
                         }
-
                     }
                 }
                 .searchable(text: $searchingFor)
