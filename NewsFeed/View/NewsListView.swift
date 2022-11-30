@@ -18,9 +18,13 @@ struct NewsListView: View {
             NavigationView {
                 List{
                     ForEach(results, id: \.self){ article in
-                        NavigationLink(destination: NewsArticleDetailView(article: article), label: {
+                        ZStack {
                             NewsArticleCell(article: article)
-                        })
+                            NavigationLink(destination: NewsArticleDetailView(article: article), label: {
+                                EmptyView()
+                            }).opacity(0)
+                        }
+
                     }
                 }
                 .searchable(text: $searchingFor)
