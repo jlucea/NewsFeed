@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct NewsListView: View {
 
@@ -16,9 +15,7 @@ struct NewsListView: View {
     var body: some View {
         
         VStack {
-            
             NavigationView {
-                // List(viewModel.newsArticles, id: \.id) { article in
                 List{
                     ForEach(results, id: \.self){ article in
                         NavigationLink(destination: NewsArticleDetailView(article: article), label: {
@@ -30,7 +27,9 @@ struct NewsListView: View {
                 .navigationTitle("News")
             }
             .navigationViewStyle(.stack)
-            .onAppear() { viewModel.getNews() }
+            .onAppear() {
+                viewModel.getNews()
+            }
         }
         
         .alert(item: $viewModel.alertItem) { alertitem in
@@ -51,7 +50,12 @@ struct NewsListView: View {
     
 }
 
-
+struct NewsListView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        NewsListView()
+    }
+}
 
 
 

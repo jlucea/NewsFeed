@@ -9,14 +9,20 @@ import Foundation
 
 class DateUtils {
     
-    static func formatDate(dateStr: String) -> String {
+    // Expects input format "yyyy-MM-dd'T'HH:mm:ssZ"
+    // Returns
+    static func formatDate(dateStr: String, showDay: Bool) -> String {
         let dateFormatterIn = DateFormatter()
         dateFormatterIn.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         
         if let date = dateFormatterIn.date(from: dateStr){
             let dateFormatterOut = DateFormatter()
             dateFormatterOut.locale = Locale(identifier: "en_US")
-            dateFormatterOut.dateFormat = "EEEE, MMM d, yyyy"
+            if showDay {
+                dateFormatterOut.dateFormat = "EEEE, MMM d, yyyy"
+            } else {
+                dateFormatterOut.dateFormat = "MMM d, yyyy"
+            }
             return dateFormatterOut.string(from: date)
         }else{
             return ""

@@ -43,7 +43,7 @@ struct NewsArticleDetailView: View {
 
             // Date
             if let dateStr = article.publishedAt {
-                Text(DateUtils.formatDate(dateStr: dateStr))
+                Text(DateUtils.formatDate(dateStr: dateStr, showDay: true))
                     .font(.footnote)
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal)
