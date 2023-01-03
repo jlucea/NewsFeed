@@ -27,8 +27,9 @@ struct NewsArticleCell : View {
                     // Image placeholder while the image is being loaded
                     placeholder: {
                         ProgressView()
+                            .frame(height: 200)
+                            .aspectRatio(contentMode: .fit)
                     })
-                
             }
             
             // This vStack shows the title and date of the article
