@@ -15,7 +15,7 @@ struct NewsListView: View {
     var body: some View {
         
         VStack {
-            NavigationView {
+            NavigationStack {
                 List{
                     ForEach(results, id: \.self){ article in
                         ZStack {
@@ -29,8 +29,11 @@ struct NewsListView: View {
                 }
                 .searchable(text: $searchingFor)
                 .navigationTitle("News")
+                /* If the navigation title display mode is set automatic,
+                  the ScrollView in the Detail screen doesn't behave well. */
+                .navigationBarTitleDisplayMode(.inline)
             }
-            .navigationViewStyle(.stack)
+            // .navigationViewStyle(.stack)
             .onAppear() {
                 viewModel.getNews()
             }

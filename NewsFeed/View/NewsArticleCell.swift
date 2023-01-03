@@ -31,7 +31,7 @@ struct NewsArticleCell : View {
                 
             }
             
-            // This vStack shows the title, date and author of the article
+            // This vStack shows the title and date of the article
             VStack (alignment: .leading, spacing: 16){
                 
                 // Title

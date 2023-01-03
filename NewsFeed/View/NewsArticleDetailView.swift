@@ -14,7 +14,7 @@ struct NewsArticleDetailView: View {
     var body: some View {
 
         ScrollView (.vertical, showsIndicators: true) {
-        
+                        
             VStack {
                 
                 // Image
@@ -78,7 +78,7 @@ struct NewsArticleDetailView: View {
                 .padding(.horizontal)
                 
             } // VStack
-                                                                
+                                                                                
         } // ScrollView
 //        .background(Color.yellow)
         
